@@ -1,0 +1,64 @@
+## 端口设置
+server:
+  port: 8081
+#  tomcat:
+#    uri-encoding: UTF-8
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      master:
+        url: jdbc:mysql://192.168.1.118:3306/serviceprivilege?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true&useSSL=false
+        username: root
+        password: Jacklee@1211
+      slave:
+        url: jdbc:mysql://192.168.1.118:3306/serviceprivilege?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true&useSSL=false
+        username: root
+        password: Jacklee@1211
+      #连接池配置(通常来说，只需要修改initialSize、minIdle、maxActive
+      # 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。分库分表较多的数据库，建议配置为false。removeabandoned不建议在生产环境中打开如果用SQL Server，建议追加配置)
+      # Druid 数据源配置，继承spring.datasource.* 配置，相同则覆盖
+      initial-size: 1
+      max-active: 20
+      min-idle: 1
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      #打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 1 FROM DUAL
+      validation-query-timeout: 60000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 30000
+      #max-evictable-idle-time-millis:
+      #配置多个英文逗号分隔
+      filter: stat
+  ## REDIS 配置
+  redis:
+    host: 192.168.1.118
+    database: 10
+    password: jacklee
+    port: 6379
+    jedis:
+      pool:
+        max-active: 300
+        max-wait: -1
+        max-idle: 8
+        min-idle: 1
+    timeout: 1000
+  ## 编码设置
+  http:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+      force-request: true
+      force-response: true

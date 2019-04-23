@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dynamicdatadsource.dao.OrderDao">
+
+    <select id="orderList" parameterType="int" resultType="com.example.dynamicdatadsource.entity.Order">
+        SELECT
+            order_no orderNo,
+            user_id userId,
+            money,
+            create_time createTime
+        FROM
+            order_tb
+    </select>
+
+    <insert id="insert" parameterType="com.harvey.model.Order">
+        INSERT INTO order_tb (
+            order_no,
+            user_id,
+            money,
+            create_time
+        )
+        VALUES
+            (
+                #{orderNo},
+                #{userId},
+                #{money},
+                #{createTime}
+            )
+    </insert>
+</mapper>
